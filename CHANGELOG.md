@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.1.2
+
+- README now shows light/dark home-page screenshots, served via absolute
+  `raw.githubusercontent` URLs so they render on the RubyGems page as well as on GitHub.
+- The `example/` demo site now auto-deploys to GitHub Pages on every push to `main`.
+
 ## 0.1.1
 
 - Footer subscribe blurb is now configurable via `newsletter_cta.footer_blurb`. When unset,
