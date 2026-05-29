@@ -106,6 +106,218 @@
   --footer-bg: var(--nord1);
 }
 
+/* ============================================================
+   Glazed (frosted-glass) style layer.
+   Toggled independently of light/dark via the `theme-glazed`
+   class on <html>. It re-maps the surface/border/shadow tokens
+   to translucent values and frosts the main panels with
+   backdrop-filter. The Nord palette itself is untouched, so
+   this composes with both .theme-nord-light and .theme-nord-dark.
+   ============================================================ */
+.theme-glazed {
+  --glass-blur: blur(14px) saturate(140%);
+  --glass-lip: inset 0 1px 0 rgba(255, 255, 255, 0.22);
+}
+
+.theme-glazed.theme-nord-dark {
+  --surface: rgba(59, 66, 82, 0.55);           /* nord1 */
+  --surface-strong: rgba(67, 76, 94, 0.62);    /* nord2 */
+  --border: rgba(216, 222, 233, 0.14);         /* snow storm, faint rim */
+  --shadow: 0 8px 32px rgba(0, 0, 0, 0.45);
+  --shadow-strong: 0 16px 44px rgba(0, 0, 0, 0.55);
+  --sidebar-bg: rgba(46, 52, 64, 0.72);        /* nord0 */
+  --footer-bg: rgba(59, 66, 82, 0.55);         /* nord1 */
+}
+
+.theme-glazed.theme-nord-light {
+  --surface: rgba(236, 239, 244, 0.60);        /* nord6 */
+  --surface-strong: rgba(229, 233, 240, 0.72); /* nord5 */
+  --border: rgba(255, 255, 255, 0.55);
+  --shadow: 0 8px 32px rgba(46, 52, 64, 0.18);
+  --shadow-strong: 0 16px 44px rgba(46, 52, 64, 0.26);
+  --sidebar-bg: rgba(46, 52, 64, 0.82);        /* keep sidebar dark, translucent */
+  --footer-bg: rgba(236, 239, 244, 0.55);      /* nord6 */
+}
+
+/* A quiet, fixed background tint so the frosting has something to
+   refract — backdrop-filter over a perfectly flat color is invisible. */
+.theme-glazed.theme-nord-dark body {
+  background:
+    radial-gradient(1200px 600px at 12% -8%, rgba(94, 129, 172, 0.22), transparent 60%),
+    radial-gradient(1000px 700px at 112% 18%, rgba(136, 192, 208, 0.15), transparent 55%),
+    radial-gradient(900px 900px at 50% 118%, rgba(180, 142, 173, 0.12), transparent 60%),
+    var(--bg);
+  background-attachment: fixed;
+}
+
+.theme-glazed.theme-nord-light body {
+  background:
+    radial-gradient(1200px 600px at 12% -8%, rgba(136, 192, 208, 0.30), transparent 60%),
+    radial-gradient(1000px 700px at 112% 18%, rgba(129, 161, 193, 0.20), transparent 55%),
+    radial-gradient(900px 900px at 50% 118%, rgba(180, 142, 173, 0.16), transparent 60%),
+    var(--bg);
+  background-attachment: fixed;
+}
+
+/* Frost the main panels: they already paint on var(--surface), now
+   translucent, so we just add the blur, a bright top "glass lip",
+   and a floating shadow. */
+.theme-glazed .sidebar,
+.theme-glazed .site-footer,
+.theme-glazed .webcmd-help-panel,
+.theme-glazed .message,
+.theme-glazed blockquote,
+.theme-glazed .pull-quote,
+.theme-glazed .newsletter-cta,
+.theme-glazed .home-newsletter-promo,
+.theme-glazed .post-toc,
+.theme-glazed .wp-caption,
+.theme-glazed .theme-menu-panel {
+  -webkit-backdrop-filter: var(--glass-blur);
+  backdrop-filter: var(--glass-blur);
+  box-shadow: var(--shadow), var(--glass-lip);
+}
+
+/* Dialogs keep their stronger elevation. */
+.theme-glazed .search-dialog {
+  -webkit-backdrop-filter: var(--glass-blur);
+  backdrop-filter: var(--glass-blur);
+  box-shadow: var(--shadow-strong), var(--glass-lip);
+}
+
+/* Blur the page behind any open modal for a true glass overlay. */
+.theme-glazed .search-overlay {
+  -webkit-backdrop-filter: blur(6px);
+  backdrop-filter: blur(6px);
+}
+
+/* Masthead toggles become little glass pills (subtle lip, no heavy shadow). */
+.theme-glazed .icon-button {
+  -webkit-backdrop-filter: var(--glass-blur);
+  backdrop-filter: var(--glass-blur);
+  box-shadow: var(--glass-lip);
+}
+
+/* Theme picker popover (Mode + Style rows). */
+.theme-menu {
+  position: relative;
+}
+
+.theme-menu-panel {
+  position: absolute;
+  top: calc(100% + 0.5rem);
+  right: 0;
+  z-index: 120;
+  min-width: 17rem;
+  padding: 0.85rem 1rem;
+  display: grid;
+  gap: 0.75rem;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  box-shadow: var(--shadow-strong);
+}
+
+.theme-menu-panel[hidden] {
+  display: none;
+}
+
+.theme-menu-row {
+  display: grid;
+  grid-template-columns: 3.2rem 1fr;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.theme-menu-label {
+  font-size: 0.72rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  font-weight: 700;
+  color: var(--muted);
+}
+
+.theme-menu-options {
+  display: inline-flex;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+.theme-option {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  flex: 1;
+  padding: 0.4rem 0.75rem;
+  border: 0;
+  background: transparent;
+  color: var(--text);
+  font: inherit;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+
+.theme-option + .theme-option {
+  border-left: 1px solid var(--border);
+}
+
+.theme-option .fa {
+  font-size: 0.95rem;
+}
+
+.theme-option:hover {
+  background: var(--surface-strong);
+}
+
+.theme-option[aria-checked="true"] {
+  background: var(--accent);
+  color: var(--on-accent);
+}
+
+.theme-option:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: -2px;
+}
+
+/* Fallback where backdrop-filter is unsupported: make the glazed
+   surfaces nearly opaque so panels stay legible. */
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .theme-glazed.theme-nord-dark {
+    --surface: rgba(59, 66, 82, 0.92);
+    --surface-strong: rgba(67, 76, 94, 0.94);
+    --footer-bg: rgba(59, 66, 82, 0.92);
+    --sidebar-bg: rgba(46, 52, 64, 0.96);
+  }
+
+  .theme-glazed.theme-nord-light {
+    --surface: rgba(236, 239, 244, 0.92);
+    --surface-strong: rgba(229, 233, 240, 0.94);
+    --footer-bg: rgba(236, 239, 244, 0.92);
+    --sidebar-bg: rgba(46, 52, 64, 0.96);
+  }
+}
+
+/* Honour a reduced-transparency preference the same way. */
+@media (prefers-reduced-transparency: reduce) {
+  .theme-glazed.theme-nord-dark {
+    --surface: rgba(59, 66, 82, 0.94);
+    --surface-strong: rgba(67, 76, 94, 0.96);
+    --footer-bg: rgba(59, 66, 82, 0.94);
+    --sidebar-bg: rgba(46, 52, 64, 0.97);
+  }
+
+  .theme-glazed.theme-nord-light {
+    --surface: rgba(236, 239, 244, 0.94);
+    --surface-strong: rgba(229, 233, 240, 0.96);
+    --footer-bg: rgba(236, 239, 244, 0.94);
+    --sidebar-bg: rgba(46, 52, 64, 0.97);
+  }
+}
+
 *,
 *::before,
 *::after {
@@ -559,7 +771,6 @@ tbody tr:nth-child(odd) th {
   outline-offset: 3px;
 }
 
-.theme-toggle-label,
 .sr-only {
   position: absolute;
   width: 1px;

@@ -22,10 +22,36 @@
               {% endif %}
             </h3>
             <div class="masthead-actions">
-              <button id="theme-toggle" class="icon-button theme-toggle" type="button" aria-pressed="false" aria-label="Switch to dark mode" title="Switch to dark mode (t)">
-                <i class="fa fa-paint-brush" aria-hidden="true"></i>
-                <span class="theme-toggle-label">Dark mode</span>
-              </button>
+              <div class="theme-menu">
+                <button id="theme-menu-toggle" class="icon-button theme-menu-toggle" type="button" aria-haspopup="true" aria-expanded="false" aria-controls="theme-menu-panel" aria-label="Theme settings" title="Theme settings (t toggles mode, Shift+G toggles glaze)">
+                  <i class="fa fa-paint-brush" aria-hidden="true"></i>
+                  <span class="sr-only">Theme settings</span>
+                </button>
+                <div id="theme-menu-panel" class="theme-menu-panel" role="menu" aria-label="Theme" hidden>
+                  <div class="theme-menu-row" role="group" aria-label="Mode">
+                    <span class="theme-menu-label">Mode</span>
+                    <div class="theme-menu-options">
+                      <button type="button" class="theme-option" data-axis="mode" data-value="light" role="menuitemradio" aria-checked="false">
+                        <i class="fa fa-sun-o" aria-hidden="true"></i><span>Light</span>
+                      </button>
+                      <button type="button" class="theme-option" data-axis="mode" data-value="dark" role="menuitemradio" aria-checked="false">
+                        <i class="fa fa-moon-o" aria-hidden="true"></i><span>Dark</span>
+                      </button>
+                    </div>
+                  </div>
+                  <div class="theme-menu-row" role="group" aria-label="Style">
+                    <span class="theme-menu-label">Style</span>
+                    <div class="theme-menu-options">
+                      <button type="button" class="theme-option" data-axis="style" data-value="flat" role="menuitemradio" aria-checked="false">
+                        <i class="fa fa-square-o" aria-hidden="true"></i><span>Flat</span>
+                      </button>
+                      <button type="button" class="theme-option" data-axis="style" data-value="glazed" role="menuitemradio" aria-checked="false">
+                        <i class="fa fa-tint" aria-hidden="true"></i><span>Glazed</span>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
               <button id="search-toggle" class="icon-button search-toggle" type="button" aria-expanded="false" aria-controls="search-overlay" aria-label="Open search" title="Search (s or /)">
                 <i class="fa fa-search" aria-hidden="true"></i>
                 <span class="sr-only">Search</span>
@@ -84,6 +110,7 @@
               <dl class="shortcuts-list">
                 <dt><kbd>/</kbd> <span class="shortcut-or">or</span> <kbd>s</kbd></dt><dd>Open search</dd>
                 <dt><kbd>t</kbd></dt><dd>Toggle light / dark</dd>
+                <dt><kbd>Shift</kbd> <kbd>G</kbd></dt><dd>Toggle glazed look</dd>
                 <dt><kbd>m</kbd></dt><dd>Toggle menu (sidebar)</dd>
                 <dt><kbd>?</kbd></dt><dd>This help</dd>
                 <dt><kbd>Esc</kbd></dt><dd>Close any overlay</dd>

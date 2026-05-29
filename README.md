@@ -17,11 +17,15 @@ The home page in both Nord themes (toggle with the `t` key):
 ## Features
 
 - Responsive post feed with featured images and excerpts.
-- Light/dark Nord theme with a `t` keyboard toggle (defaults to `prefers-color-scheme`).
+- Light/dark Nord theme (defaults to `prefers-color-scheme`).
+- Optional **glazed** (frosted-glass) look layered over either mode.
+- A single masthead **theme menu** button opens a popover with two rows — *Mode*
+  (Light / Dark) and *Style* (Flat / Glazed). Mode and glaze are remembered
+  separately; `t` toggles mode and `Shift+G` toggles glaze from the keyboard.
 - Client-side search overlay (elasticlunr) that indexes posts **and** every output
   collection — no external service.
-- Keyboard shortcuts: `?` (help), `/` or `s` (search), `t` (theme), `m` (sidebar),
-  `g h/f/k/e/a` (go to Home / Featured / Newsletter / Emacs / About).
+- Keyboard shortcuts: `?` (help), `/` or `s` (search), `t` (theme), `Shift+G` (glazed look),
+  `m` (sidebar), `g h/f/k/e/a` (go to Home / Featured / Newsletter / Emacs / About).
 - A `webcmd` command-line overlay for power users.
 - Archive, category (taxonomy-grouped), tag, and featured pages.
 - Collection layouts for newsletters and an Emacs-style note wiki.

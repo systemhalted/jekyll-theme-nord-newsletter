@@ -126,83 +126,163 @@
   };
 })(document);
 
+// Theme menu: one popover controlling two independent axes —
+//   mode  (light/dark)  -> 'theme'        key, theme-nord-light/dark classes
+//   style (flat/glazed) -> 'theme-style'  key, theme-glazed class
+// The classes are already applied pre-paint by the inline script in
+// head.html; this wires the picker UI, persistence, and live updates.
 (function(document) {
   var root = document.documentElement;
-  var toggle = document.querySelector('#theme-toggle');
+  var menuToggle = document.querySelector('#theme-menu-toggle');
+  var panel = document.querySelector('#theme-menu-panel');
 
-  if (!toggle) return;
+  if (!menuToggle || !panel) return;
 
-  var storageKey = 'theme';
+  var options = Array.prototype.slice.call(panel.querySelectorAll('.theme-option'));
   var lightClass = 'theme-nord-light';
   var darkClass = 'theme-nord-dark';
-  var label = toggle.querySelector('.theme-toggle-label');
+  var glazedClass = 'theme-glazed';
+  var modeKey = 'theme';
+  var styleKey = 'theme-style';
   var mediaQuery = null;
-  var storedTheme = null;
+  var storedMode = null;
 
-  function normalizeTheme(value) {
-    return value === 'dark' || value === 'light' ? value : null;
-  }
-
-  function getStoredTheme() {
+  function read(key, valid) {
     try {
-      return normalizeTheme(localStorage.getItem(storageKey));
+      var v = localStorage.getItem(key);
+      return valid.indexOf(v) !== -1 ? v : null;
     } catch (e) {
       return null;
     }
   }
 
-  function getPreferredTheme() {
+  function write(key, value) {
     try {
-      return mediaQuery && mediaQuery.matches ? 'dark' : 'light';
+      localStorage.setItem(key, value);
     } catch (e) {
-      return 'light';
     }
   }
 
-  function updateToggle(theme) {
-    var isDark = theme === 'dark';
-    toggle.setAttribute('aria-pressed', isDark ? 'true' : 'false');
-    toggle.setAttribute('aria-label', isDark ? 'Switch to light mode' : 'Switch to dark mode');
-    toggle.setAttribute('title', isDark ? 'Switch to light mode' : 'Switch to dark mode');
-    if (label) {
-      label.textContent = isDark ? 'Light mode' : 'Dark mode';
-    }
+  function currentMode() {
+    return root.classList.contains(darkClass) ? 'dark' : 'light';
   }
 
-  function applyTheme(theme, persist) {
+  function currentStyle() {
+    return root.classList.contains(glazedClass) ? 'glazed' : 'flat';
+  }
+
+  function syncOptions() {
+    var mode = currentMode();
+    var style = currentStyle();
+    options.forEach(function(option) {
+      var on = option.dataset.axis === 'mode'
+        ? option.dataset.value === mode
+        : option.dataset.value === style;
+      option.setAttribute('aria-checked', on ? 'true' : 'false');
+    });
+  }
+
+  function applyTheme(mode, persist) {
     root.classList.remove(lightClass, darkClass);
-    root.classList.add(theme === 'dark' ? darkClass : lightClass);
+    root.classList.add(mode === 'dark' ? darkClass : lightClass);
 
     if (persist) {
-      storedTheme = theme;
-      try {
-        localStorage.setItem(storageKey, theme);
-      } catch (e) {
-      }
+      storedMode = mode;
+      write(modeKey, mode);
     }
 
-    updateToggle(theme);
+    syncOptions();
 
     var giscusFrame = document.querySelector('iframe.giscus-frame');
     if (giscusFrame && giscusFrame.contentWindow) {
       giscusFrame.contentWindow.postMessage(
-        { giscus: { setConfig: { theme: theme === 'dark' ? 'dark' : 'light' } } },
+        { giscus: { setConfig: { theme: mode === 'dark' ? 'dark' : 'light' } } },
         'https://giscus.app'
       );
     }
   }
 
+  function applyStyle(style, persist) {
+    if (style === 'glazed') {
+      root.classList.add(glazedClass);
+    } else {
+      root.classList.remove(glazedClass);
+    }
+
+    if (persist) {
+      write(styleKey, style);
+    }
+
+    syncOptions();
+  }
+
+  // ---- popover open/close ----
+  function isOpen() {
+    return !panel.hidden;
+  }
+
+  function openMenu() {
+    panel.hidden = false;
+    menuToggle.setAttribute('aria-expanded', 'true');
+    var checked = options.filter(function(o) { return o.getAttribute('aria-checked') === 'true'; })[0];
+    (checked || options[0]).focus();
+  }
+
+  function closeMenu(focusToggle) {
+    panel.hidden = true;
+    menuToggle.setAttribute('aria-expanded', 'false');
+    if (focusToggle) menuToggle.focus();
+  }
+
+  menuToggle.addEventListener('click', function() {
+    if (isOpen()) {
+      closeMenu(false);
+    } else {
+      openMenu();
+    }
+  });
+
+  options.forEach(function(option) {
+    option.addEventListener('click', function() {
+      if (option.dataset.axis === 'mode') {
+        applyTheme(option.dataset.value, true);
+      } else {
+        applyStyle(option.dataset.value, true);
+      }
+    });
+  });
+
+  // Close on Escape (return focus to trigger) and on outside pointer events.
+  panel.addEventListener('keydown', function(event) {
+    if (event.key === 'Escape') {
+      event.preventDefault();
+      closeMenu(true);
+    }
+  });
+
+  document.addEventListener('keydown', function(event) {
+    if (event.key === 'Escape' && isOpen()) closeMenu(true);
+  });
+
+  document.addEventListener('pointerdown', function(event) {
+    if (isOpen() && !panel.contains(event.target) && !menuToggle.contains(event.target)) {
+      closeMenu(false);
+    }
+  });
+
+  // ---- initial state (classes already set pre-paint) ----
   if (window.matchMedia) {
     mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
   }
 
-  storedTheme = getStoredTheme();
-  var initialTheme = storedTheme || getPreferredTheme();
-  applyTheme(initialTheme, false);
+  storedMode = read(modeKey, ['light', 'dark']);
+  var initialMode = storedMode || (mediaQuery && mediaQuery.matches ? 'dark' : 'light');
+  applyTheme(initialMode, false);
+  applyStyle(read(styleKey, ['flat', 'glazed']) || 'flat', false);
 
   if (mediaQuery) {
     var handleSystemChange = function(event) {
-      if (storedTheme) return;
+      if (storedMode) return;
       applyTheme(event.matches ? 'dark' : 'light', false);
     };
 
@@ -213,10 +293,13 @@
     }
   }
 
-  toggle.addEventListener('click', function() {
-    var nextTheme = root.classList.contains(darkClass) ? 'light' : 'dark';
-    applyTheme(nextTheme, true);
-  });
+  // Exposed for the keyboard shortcuts (t = mode, Shift+G = glaze).
+  window.__toggleMode = function() {
+    applyTheme(currentMode() === 'dark' ? 'light' : 'dark', true);
+  };
+  window.__toggleGlaze = function() {
+    applyStyle(currentStyle() === 'glazed' ? 'flat' : 'glazed', true);
+  };
 })(document);
 
 (function(document) {
@@ -698,11 +781,16 @@
     }
 
     if (key === 't') {
-      var themeToggle = document.querySelector('#theme-toggle');
-      if (themeToggle) {
-        event.preventDefault();
-        themeToggle.click();
-      }
+      event.preventDefault();
+      if (window.__toggleMode) window.__toggleMode();
+      return;
+    }
+
+    // Shift+G toggles the glazed (frosted-glass) look. Uppercase 'G'
+    // never collides with the lowercase 'g' "go to" chord above.
+    if (key === 'G') {
+      event.preventDefault();
+      if (window.__toggleGlaze) window.__toggleGlaze();
       return;
     }
 
