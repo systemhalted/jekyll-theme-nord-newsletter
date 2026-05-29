@@ -22,7 +22,7 @@ Gem::Specification.new do |spec|
 
   spec.files = Dir.glob("{assets,_includes,_layouts,_sass,_data,lib}/**/*", File::FNM_DOTMATCH)
                   .select { |f| File.file?(f) } +
-               %w[CHANGELOG.md LICENSE.txt README.md]
+               %w[CHANGELOG.md LICENSE.md README.md]
 
   spec.add_runtime_dependency "jekyll", "~> 4.3"
   spec.add_runtime_dependency "jekyll-feed", "~> 0.15"

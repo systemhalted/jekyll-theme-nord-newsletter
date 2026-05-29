@@ -179,4 +179,4 @@ bundle exec jekyll serve --source example --destination example/_site --liverelo
 
 ## License
 
-[MIT](LICENSE.txt) © Palak Mathur
+[MIT](LICENSE.md) © Palak Mathur
