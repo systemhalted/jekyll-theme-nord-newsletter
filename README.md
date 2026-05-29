@@ -6,6 +6,14 @@ category / tag pages, a client-side search overlay, a keyboard-driven command-li
 collection layouts, optional Giscus comments, and an optional newsletter CTA — all
 configurable from `_config.yml`.
 
+## Screenshots
+
+The home page in both Nord themes (toggle with the `t` key):
+
+| Dark | Light |
+| --- | --- |
+| ![Nord Newsletter home page in the dark theme](https://raw.githubusercontent.com/systemhalted/jekyll-theme-nord-newsletter/main/docs/screenshots/home-dark.png) | ![Nord Newsletter home page in the light theme](https://raw.githubusercontent.com/systemhalted/jekyll-theme-nord-newsletter/main/docs/screenshots/home-light.png) |
+
 ## Features
 
 - Responsive post feed with featured images and excerpts.
