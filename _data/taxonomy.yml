@@ -1,0 +1,85 @@
+themes:
+
+  - id: series
+    title: "Series"
+    description: "Posts part of a series"
+    categories:
+      - "Series 1 - Language and Linguistics" 
+      - "Series 2 - Turtle, BASIC, and the Long Road to Taste"
+      - "Series 3 - Project Jigsaw (JPMS)"
+      - "Series 4 - Floating Point Without Tears"
+
+  - id: tech_engineering
+    title: "Tech, Software, and Engineering"
+    description: "Software, programming, tools, and engineering practice."
+    categories:
+      - "Technology"
+      - "Software Engineering"
+      - "Computer Science"
+
+  - id: ai_data
+    title: "AI, Data, and Digital Risk"
+    description: "Artificial intelligence, machine learning, data, and online safety."
+    categories:
+      - "AI"
+      - "Data"
+
+  - id: politics_society
+    title: "Politics, Economy, and Society"
+    description: "Democracy, policy, corruption, economy, and social fabric."
+    categories:
+      - "Politics & Governance"
+      - "Society & Economy"
+
+  - id: books_media
+    title: "Books, Reviews, and Media"
+    description: "Book reviews, media reviews, and other curated content."
+    categories:
+      - "Books & Reading"
+      - "Movie Review"
+      - "Media Review"
+      - "Article Review"
+
+  - id: language_lit_spirit
+    title: "Language, Literature, and Spirituality"
+    description: "Poetry, languages, philosophy, religion, and related writing."
+    categories:
+      - "Languages & Linguistics"
+      - "Poetry & Literature"
+      - "Spirituality & Philosophy"
+
+  - id: life_personal
+    title: "Life, Work, and Personal Growth"
+    description: "Personal essays, behaviour, growth, and people-focused writing."
+    categories:
+      - "Personal Essays"
+      - "Life Events"
+
+  - id: hobbies_travel
+    title: "Hobbies, Travel, and Exploration"
+    description: "Astronomy, sports, travel, and other hobbies."
+    categories:
+      - "Travel"
+      - "Sports & Hobbies"
+
+  - id: meta_format
+    title: "Meta and Formats"
+    description: "Guest posts and content tied to talks or videos."
+    categories:
+      - "Meta & Guest"
+      
+  - id: newsletter
+    title: "Newsletters"
+    description: "My Newsletters"
+    categories:
+      - "Newsletter"
+      
+
+tags:
+  - people/places: india, united-states, agra, pune, mumbai
+  - topics: politics, economy, society, law, education, technology, software, computer-science, ai, data, security, management, leadership, productivity, agile, design, product-management, sustainability
+  - culture: poetry, hindi, urdu, literature
+  - formats: book-review, movie-review, newsletter
+  - misc: personal, opinion, travel, sports, astronomy
+
+

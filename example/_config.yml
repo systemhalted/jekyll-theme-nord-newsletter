@@ -1,0 +1,97 @@
+# Demo site for the jekyll-theme-nord-newsletter gem.
+# Copy these keys into your own site's _config.yml and adjust.
+
+title:               Nord Newsletter
+tagline:             "A demo of the Nord Newsletter theme"
+description:         "Nord Newsletter — a Nord-palette Jekyll theme."
+url:                 http://localhost:4000
+baseurl:             ""
+
+theme:               jekyll-theme-nord-newsletter
+
+paginate:            8
+paginate_path:       "/page:num"
+permalink:           /:year/:month/:day/:title/
+
+author:
+  name:              Jane Doe
+  email:             jane@example.com
+  linkedin:          https://www.linkedin.com/in/example/
+  github:            https://github.com/example
+  avatar:            /assets/images/avatar.svg
+
+markdown:            kramdown
+highlighter:         rouge
+
+plugins:
+  - jekyll-paginate
+  - jekyll-gist
+  - jekyll-seo-tag
+  - jekyll-sitemap
+  - jekyll-feed
+  - jekyll-toc
+
+collections_dir: collections
+collections:
+  emacs:
+    output: true
+  newsletter:
+    output: true
+
+defaults:
+  - scope: { path: "", type: "posts" }
+    values: { layout: post }
+  - scope: { path: "", type: "newsletter" }
+    values: { layout: newsletter }
+  - scope: { path: "", type: "emacs" }
+    values: { layout: emacs }
+
+# Optional Google Analytics (gtag.js). Leave unset to disable.
+# google_analytics_id: G-XXXXXXXXXX
+
+# Giscus comments (https://giscus.app). Leave `giscus` unset to disable comments.
+# giscus:
+#   repo:        owner/repo
+#   repo_id:     R_xxx
+#   category:    Comments
+#   category_id: DIC_xxx
+#   mapping:     pathname
+
+# Newsletter CTA. `kit_uid` + `kit_url` enable the Kit (ConvertKit) embed;
+# omit them to show only the title/lede and an RSS link.
+newsletter_cta:
+  title:     "the newsletter"
+  lede:      "Occasional essays by email. Free, no spam."
+  path:      /kartavya-path/
+  feed_path: /feed.xml
+  # kit_uid: abcdef1234
+  # kit_url: https://your-account.kit.com
+
+# Search overlay suggestion chips.
+search:
+  suggestions:
+    - jekyll
+    - nord
+    - search
+    - sample
+
+sidebar:
+  items:
+    - title: "Home"
+      url: "/"
+    - title: "About"
+      url: "/about/"
+    - title: "Newsletter"
+      url: "/kartavya-path/"
+    - title: "Featured"
+      url: "/featured/"
+    - title: "Archives"
+      url: "/archives/"
+    - title: "Categories"
+      url: "/categories/"
+    - title: "Tags"
+      url: "/tags/"
+    - title: "Emacs"
+      url: "/emacs/"
+    - title: "Command line"
+      url: "/webcmd/"

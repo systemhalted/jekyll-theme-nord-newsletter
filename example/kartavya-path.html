@@ -1,0 +1,23 @@
+---
+title: Newsletter
+layout: page
+permalink: /kartavya-path/
+hide_page_title: true
+---
+
+<section class="newsletter-hero">
+  <p class="newsletter-brand">{{ site.newsletter_cta.title | default: 'Newsletter' }}</p>
+  <h1 class="newsletter-headline">A demo newsletter built into the theme</h1>
+  <p class="newsletter-lede">
+    This page lists newsletter issues from the <code>newsletter</code> collection using the
+    theme's <code>newsletter-list-item</code> include. Subscribe by email or RSS below.
+  </p>
+</section>
+
+{% include newsletter-cta.html context="landing" %}
+
+<h2 class="recent-title">Past issues</h2>
+<ul class="post-feed">
+  {% assign issues = site.newsletter | sort: 'date' | reverse %}
+  {% for issue in issues %}{% include newsletter-list-item.html issue=issue %}{% endfor %}
+</ul>

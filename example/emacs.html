@@ -1,0 +1,20 @@
+---
+title: Emacs
+layout: page
+permalink: /emacs/
+hide_page_title: true
+---
+
+<section class="newsletter-hero">
+  <p class="newsletter-kicker">Notes &amp; references</p>
+  <h1 class="newsletter-headline">Emacs</h1>
+  <p class="newsletter-lede">
+    A demo collection index. Notes live in the <code>emacs</code> collection and render with
+    the theme's <code>emacs</code> layout.
+  </p>
+</section>
+
+<ul class="post-feed">
+  {% assign notes = site.emacs | sort: 'title' %}
+  {% for note in notes %}{% include emacs-list-item.html note=note %}{% endfor %}
+</ul>
