@@ -4,8 +4,8 @@
 title:               Nord Newsletter
 tagline:             "A demo of the Nord Newsletter theme"
 description:         "Nord Newsletter — a Nord-palette Jekyll theme."
-url:                 http://localhost:4000
-baseurl:             ""
+url:                 https://systemhalted.in
+baseurl:             /jekyll-theme-nord-newsletter
 
 theme:               jekyll-theme-nord-newsletter
 
