@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.1.1
+
+- Footer subscribe blurb is now configurable via `newsletter_cta.footer_blurb`. When unset,
+  it falls back to the previous "Get <newsletter> by email, or follow the blog by RSS." text.
+
 ## 0.1.0
 
 Initial release. Extracted from the systemhalted.in blog and made config-driven.

@@ -91,12 +91,13 @@ issue. The Kit (ConvertKit) embed only loads when both `kit_uid` and `kit_url` a
 
 ```yaml
 newsletter_cta:
-  title:     "My Newsletter"
-  lede:      "Occasional essays by email. Free, no spam."
-  path:      /newsletter/          # landing page the footer links to
-  feed_path: /feed.xml             # RSS link in the CTA
-  kit_uid:   abcdef1234            # optional
-  kit_url:   https://you.kit.com   # optional
+  title:       "My Newsletter"
+  lede:        "Occasional essays by email. Free, no spam."
+  path:        /newsletter/          # landing page the footer links to
+  feed_path:   /feed.xml             # RSS link in the CTA
+  footer_blurb: "Get My Newsletter by email, or follow the blog by RSS."  # optional; overrides the footer subscribe sentence
+  kit_uid:     abcdef1234            # optional
+  kit_url:     https://you.kit.com   # optional
 ```
 
 > **Note:** `newsletter` is also a common collection name (`site.newsletter`). The CTA config
