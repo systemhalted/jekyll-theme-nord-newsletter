@@ -1,5 +1,12 @@
 # Changelog
 
+## 1.0.1
+
+- Renamed the demo newsletter landing page from `kartavya-path` to the generic
+  `the-newsletter` (file `example/the-newsletter.html`, URL `/the-newsletter/`, plus the
+  matching `_config.yml`, README, and CSS comment). The previous name was reserved brand
+  content and should not ship as a starter template.
+
 ## 1.0.0
 
 First stable release.

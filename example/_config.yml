@@ -62,7 +62,7 @@ defaults:
 newsletter_cta:
   title:     "the newsletter"
   lede:      "Occasional essays by email. Free, no spam."
-  path:      /kartavya-path/
+  path:      /the-newsletter/
   feed_path: /feed.xml
   # kit_uid: abcdef1234
   # kit_url: https://your-account.kit.com
@@ -82,7 +82,7 @@ sidebar:
     - title: "About"
       url: "/about/"
     - title: "Newsletter"
-      url: "/kartavya-path/"
+      url: "/the-newsletter/"
     - title: "Featured"
       url: "/featured/"
     - title: "Archives"

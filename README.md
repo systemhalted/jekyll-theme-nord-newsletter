@@ -157,7 +157,7 @@ description: One-line summary for previews and search.
 
 The theme ships layouts; archive-style pages are **starter templates** in `example/` you can
 copy to your site root: `index.html`, `archives.html`, `categories.html`, `tags.html`,
-`featured.html`, `404.md`, plus `kartavya-path.html` (newsletter index), `emacs.html`
+`featured.html`, `404.md`, plus `the-newsletter.html` (newsletter index), `emacs.html`
 (collection index), and `webcmd/index.html` (command-line page).
 
 ## Collections
